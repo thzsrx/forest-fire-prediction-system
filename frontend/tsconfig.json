@@ -1,0 +1,14 @@
+{
+    "compilerOptions": {
+    // ...
+    "jsx": "jsx",
+    "module": "ESNext",
+    "baseUrl": ".",
+    "paths": {
+      "@/*": [
+        "./src/*"
+      ]
+    }
+    // ...
+  }
+}
