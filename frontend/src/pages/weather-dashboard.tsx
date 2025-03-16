@@ -8,6 +8,8 @@ import { CurrentWeather } from "@/components/currentweather";
 import { HourlyTemperature } from "@/components/hourlyTemperature";
 import { WeatherDetails } from "@/components/weatherDetail";
 import { WeatherForecast } from "@/components/weatherForecast";
+import { FavoriteCities } from "@/components/FavoriteCities";
+import { FireStationMap } from "@/components/fire-station-map";
 
 
 const WeatherDashboard = () => {
@@ -17,6 +19,10 @@ const WeatherDashboard = () => {
     const forecastQuery = useForecastQuery(coordinates);
     const weatherQuery = useWeatherQuery(coordinates);
 
+    // console.log('Name:', locationQuery.data?.[0]?.name);
+    // console.log('State:', locationQuery.data?.[0]?.state);
+   // console.log('State:', locationQuery.data?.[0]?.lat);
+    
     const handleRefresh = () => {
         getLocation();
         if (coordinates) {
@@ -87,6 +93,7 @@ const WeatherDashboard = () => {
     return (
         <div className="space-y-4">
             {/* Favorites cities */}
+            <FavoriteCities />
            <div className="flex items-center justify-between">
               <h1 className="text-xl font-bold tracking-tight">My Location</h1>
                 <Button variant={'outline'} size={'icon'} onClick={handleRefresh} disable={weatherQuery.isFetching || forecastQuery.isFetching}>
@@ -102,10 +109,13 @@ const WeatherDashboard = () => {
                     </div>
             
                  <div className="grid gap-6 md:grid-cols-2 items-start">
-                    <WeatherForecast data={forecastQuery.data} />
                     {/* detail */}
                     <WeatherDetails data={weatherQuery.data} />
                     {/* forecast */}
+                    <WeatherForecast data={forecastQuery.data} />
+                </div>
+                <div className="grid gap-6 md:grid-cols-2 items-start">
+                    <FireStationMap />
                 </div>
             </div>
         </div>
