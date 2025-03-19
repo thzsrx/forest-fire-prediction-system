@@ -5,10 +5,10 @@ import { ThemeProvider } from './context/theme-provider';
 import WeatherDashboard from './pages/weather-dashboard';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
-import { Toaster } from './components/ui/sonner';
 import CityPage from './pages/city-page';
 import { SignupForm } from "@/components/SignupForm"
 import { LoginForm } from "@/components/LoginForm"
+import Adminpanel from "@/components/Adminpanel"; 
 
 const queryClient = new QueryClient({
     defaultOptions: {
@@ -25,16 +25,16 @@ function App() {
     return (
         <QueryClientProvider client={queryClient}>
             <BrowserRouter>
-                <ThemeProvider defaultTheme='dark'>
+                <ThemeProvider defaultTheme='light'>
                     <Layout>
                         <Routes>
                             <Route path='/signup' element={<SignupForm />} />
                             <Route path='/login' element={<LoginForm />} />
                             <Route path='/' element={<WeatherDashboard />}/>
                             <Route path='/city/:cityName' element={<CityPage />}/>
+                            <Route path='/admin' element={<Adminpanel />}/>
                         </Routes>
                     </Layout>
-                    <Toaster richColors />
                 </ThemeProvider>
             </BrowserRouter>
         <ReactQueryDevtools initialIsOpen={false} />

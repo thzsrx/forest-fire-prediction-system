@@ -13,7 +13,7 @@ import {
 import { Input } from "@/components/ui/input"
 import axios from "axios"
 import { useState } from "react"
-import { useNavigate } from "react-router-dom"
+import { useNavigate, Link } from "react-router-dom"
 
 const formSchema = z.object({
   email: z.string().email({
@@ -25,31 +25,33 @@ const formSchema = z.object({
 })
 
 export function LoginForm() {
-  const [loading, setLoading] = useState(false)
-  const [error, setError] = useState("")
+ const [loading, setLoading] = useState(false);
+  const [error, setError] = useState("");
   const navigate = useNavigate();
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
-    defaultValues: {
-      email: "",
-      password: "",
-    },
-  })
+    defaultValues: { email: "", password: "" },
+  });
 
   async function onSubmit(values: z.infer<typeof formSchema>) {
     try {
-      setLoading(true)
-      setError("")
-      const response = await axios.post("/api/auth/login", values)
-      console.log("Login successful:", response.data)
-      navigate("/")
-      // Handle successful login (redirect, store token, etc.)
+      setLoading(true);
+      setError("");
+      const response = await axios.post("/api/auth/login", values);
+      
+      // Store tokens before navigation
+      localStorage.setItem("token", response.data.token);
+      localStorage.setItem("user", JSON.stringify(response.data.user));
+      
+      // Add timeout to ensure storage completes
+      setTimeout(() => navigate("/"), 100);
+      
     } catch (err) {
-      setError("Invalid email or password")
-      console.error("Login error:", err)
+      setError("Invalid email or password");
+      console.error("Login error:", err);
     } finally {
-      setLoading(false)
+      setLoading(false);
     }
   }
 
@@ -87,6 +89,15 @@ export function LoginForm() {
           />
 
           {error && <p className="text-red-500 text-sm">{error}</p>}
+          
+        <div className="text-center mt-4">
+            <p className="text-sm">
+              Don't have an account?{" "}
+              <Link to="/signup" className="text-blue-500 hover:underline">
+                Create an account
+              </Link>
+            </p>
+          </div>
 
           <Button type="submit" className="w-full" disabled={loading}>
             {loading ? "Logging in..." : "Login"}

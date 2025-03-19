@@ -13,7 +13,7 @@ import {
 import { Input } from "@/components/ui/input"
 import axios from "axios"
 import { useState } from "react"
-import { useNavigate } from "react-router-dom"
+import { useNavigate, Link } from "react-router-dom"
 
 const formSchema = z.object({
   username: z.string().min(2, {
@@ -105,6 +105,14 @@ export function SignupForm() {
           />
 
           {error && <p className="text-red-500 text-sm">{error}</p>}
+        <div className="text-center mt-4">
+            <p className="text-sm">
+                Already have an account?{" "}
+            <Link to="/login" className="text-blue-500 hover:underline">
+                Login
+            </Link>
+           </p>
+        </div>
 
           <Button type="submit" className="w-full" disabled={loading}>
             {loading ? "Signing up..." : "Sign Up"}

@@ -41,15 +41,17 @@ export default function CityPage() {
             <div className="flex items-center justify-between">
                 <h1 className="text-3xl font-bold tracking-tight">{params.cityName}, {weatherQuery.data.sys.country}</h1>
                 <div>
-                    {/* favorite button */}
-                    <FavoriteButton data = {{ ...weatherQuery.data, name: params.cityName }} />
+                    {/* favorite button                    <FavoriteButton data = {{ ...weatherQuery.data, name: params.cityName }} />
+                
+*/}
+ 
                 </div>
                 </div>
 
             <div className="grid gap-6">
                 <div className="flex flex-col gap-4">
                     <CurrentWeather data = {weatherQuery.data} />
-                    <HourlyTemperature data = {forecastQuery.data} />
+                    {/* <HourlyTemperature data = {forecastQuery.data} />*/}
                 </div>
 
                 <div className="grid gap-6 md:grid-cols-2 items-start">

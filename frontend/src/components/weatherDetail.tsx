@@ -58,12 +58,9 @@ export function WeatherDetails({ data }: WeatherDetailsProps) {
       <CardContent>
         <div className="grid gap-6 sm:grid-cols-2">
           {details.map((detail) => (
-            <div
-              key={detail.title}
-              className="flex items-center gap-3 rounded-lg border p-4"
-            >
+            <div key={detail.title} className="flex items-center gap-3 rounded-lg border p-4">
               <detail.icon className={`h-5 w-5 ${detail.color}`} />
-              <div>
+              <div className="h-5 w-30">
                 <p className="text-sm font-medium leading-none">
                   {detail.title}
                 </p>
